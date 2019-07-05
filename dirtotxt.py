@@ -16,6 +16,7 @@ all_f.close()
 train_f.close()
 test_f.close()
 
+
 def get_binary_list(num, p, pos_id = 0):
     neg_id = (pos_id + 1) % 2
     random.seed(num)
