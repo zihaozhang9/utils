@@ -2,7 +2,7 @@ import os
 from os import path as osp
 import shutil
 import sh
-
+from PIL import Image, ImageDraw
 ##################################################################
 
 #os path
