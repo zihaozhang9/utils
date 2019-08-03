@@ -3,6 +3,39 @@ from os import path as osp
 import shutil
 import sh
 from PIL import Image, ImageDraw
+#######
+
+import argparse
+from matplotlib import pyplot as plt
+import pandas as pd
+import seaborn as sn
+import os
+import numpy as np
+from PIL import Image
+import sh
+from glob import glob
+import tqdm
+import json
+from easydict import EasyDict as edict
+import hashlib
+from functools import total_ordering
+import glob
+from utils import *
+from skimage.util import montage
+import csv
+import random
+import sys
+import shutil
+import shapely
+
+from shapely.geometry import Polygon,MultiPoint
+
+def pil2cv(img):
+    return cv2.cvtColor(np.array(img),cv2.COLOR_RGB2BGR)
+
+def cv2pil(img):
+    return Image.fromarray(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
+
 ##################################################################
 
 #os path
@@ -82,12 +115,43 @@ canvas[0:height,0:width,  :] = img
 #保存图像
 cv2.imwrite(os.path.join(savePath,imgName),img)
 
-def pil2cv(img):
-    return cv2.cvtColor(np.array(img),cv2.COLOR_RGB2BGR)
+#https://blog.csdn.net/guyuealian/article/details/86488008
+#计算相交面积、交并比
+def claOverlapArea(ocr_dict,string_label):
+    cx1 = ocr_dict['x1']
+    cy1 = ocr_dict['y1']
+    cx2 = ocr_dict['x2']
+    cy2 = ocr_dict['y2']
 
-def cv2pil(img):
-    return Image.fromarray(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
+    gx1 = string_label['x1']
+    gy1 = string_label['y1']
+    gx2 = string_label['x2']
+    gy2 = string_label['y2']
+
+    x1 = max(cx1, gx1)
+    y1 = max(cy1, gy1)
+    x2 = min(cx2, gx2)
+    y2 = min(cy2, gy2)
+    w = max(0, x2 - x1)
+    h = max(0, y2 - y1)
+    area = w * h
     
+    S_rec1 = (cx2 - cx1) * (cy2 - cy1)# C area
+    S_rec2 = (gx2 - gx1) * (gy2 - gy1)# g area
+    iou = area / (S_rec1 + S_rec2 - area)
+    
+    return area,iou
+
+#计算旋转矩形相交面积
+def claOverlapPolygonArea(char_dict,line_dict):
+    a=char_dict['bboxs'].reshape(4, 2)
+    poly1 = Polygon(a).convex_hull
+    b=line_dict['bboxs'].reshape(4, 2)
+    poly2 = Polygon(b).convex_hull
+    if not poly1.intersects(poly2):
+        return 0
+    inter_area = poly1.intersection(poly2).area
+    return inter_area
 
 #outhtml.py,需要完善
 import os
