@@ -99,6 +99,15 @@ sh.rm(imgp)
 #scr:原图,dsize：输出图像尺寸,fx:沿水平轴的比例因子,fy:沿垂直轴的比例因子,interpolation：插值方法
 img = cv2.resize(img,(640,640))
 
+#打印文字 - 照片/添加的文字/左上角坐标/字体/字体大小/颜色/字体粗细
+cv2.putText(I,'there 0 error(s):',(50,150),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),1)
+
+#画矩形 -     图片，左上顶底，坐下顶底，颜色，  线条粗细
+cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
+
+#画多边形
+cv2.polylines(img,[pts],True,(0,255,255))
+
 #长边resize
 w = h = 640
 img_width,img_height = img.shape[1],img.shape[0]
