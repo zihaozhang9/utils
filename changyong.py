@@ -89,6 +89,19 @@ sh.wget("-O", dst_path , label.image.image_url)
 #删除文件
 sh.rm(imgp)
 
+##
+#json载入
+result = json.loads(open(labfile).read())
+#json树
+aaa= {'a':{'a1':1},'b':{'b1':2,'b2':{'b22':22}}}
+def dicts(t): 
+    if isinstance(t,dict):
+        return {k: dicts(t[k]) for k in t.keys()}
+    elif isinstance(t,list):
+        return str(type(t))+str(len(t))
+    else:
+        return str(type(t))
+print(dicts(aaa))
 
 ##################################################################
 
