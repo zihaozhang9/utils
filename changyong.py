@@ -109,7 +109,7 @@ print(dicts(aaa))
 ##################################################################
 
 #opencv cv2
-
+#@@@@需要添加cv2.findContours等
 #resize
 #cv2.resize(src,dsize,dst=None,fx=None,fy=None,interpolation=None)
 #scr:原图,dsize：输出图像尺寸,fx:沿水平轴的比例因子,fy:沿垂直轴的比例因子,interpolation：插值方法
