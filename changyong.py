@@ -73,9 +73,9 @@ if os.path.exists(dst):
     shutil.copytree(src, dst)
 
 ##如果存在，则删除，再创建目录
-if os.path.exists(dst):shutil.rmtree(dst) 
-os.makedirs(dst)   
-
+def creatdir(dst): 
+    if os.path.exists(dst):shutil.rmtree(dst) 
+    os.makedirs(dst) 
 ##################################################################
 #sh
 #python中执行linux命令
