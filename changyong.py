@@ -169,6 +169,7 @@ def claOverlapArea(ocr_dict,string_label):
 
 #计算旋转矩形相交面积
 def claOverlapPolygonArea(char_dict,line_dict):
+    from shapely.geometry import Polygon,MultiPoint
     a=char_dict['bboxs'].reshape(4, 2)
     poly1 = Polygon(a).convex_hull
     b=line_dict['bboxs'].reshape(4, 2)
