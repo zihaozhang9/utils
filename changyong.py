@@ -230,6 +230,27 @@ def out2html2(rootPath,rootPath2):
         if idx>100:
             break
     print(idx+1)
+    
+    
+def out2html_ex(rootPath,rootPath2):
+    f = open('out.html','w')
+    f.close()
+    imgList = [i for i in os.listdir(rootPath) ]#if i.endswith('.bmp')]
+    imgList2 = [i.split('.')[0] for i in os.listdir(rootPath2) ]
+    #import pdb;pdb.set_trace()
+    count  = 0
+    for idx,imgName in enumerate(imgList):
+        imgName_ex = imgName.split('.')[0]
+        if imgName_ex in imgList2: continue
+        f = open('out.html','a')
+        wstr = '<tr><td><img src="'+os.path.join(rootPath,imgName)+'"></img></td></tr>\r\n'
+        f.write(wstr)
+        f.close()
+        #if idx>100:
+        #    break
+        count += 1
+    print(count)
+    
 rootPath = '/data/'
 rootPath2= 'outputs'
 savePath = 'tmpdata/draws'
