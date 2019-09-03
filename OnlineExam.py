@@ -147,3 +147,31 @@ def main():
     print(g.dfs(1))
 if __name__ == "__main__":
     main() 
+
+    
+#https://baike.baidu.com/item/%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F
+#等差数列通项公式
+#an = a1+(n-1)*d
+def an(a1,n,d=1):
+    return a1+(n-1)*d
+print(an(1,3,2))#1,3,5,7,9 ->out 5
+
+    
+#等差数列前n项和
+#Sn = n*a1+n*(n-1)*d/2
+def Sn(a1,n,d=1):
+    return n*a1+n*(n-1)*d/2    
+print(Sn(1,3,2))#1,3,5,7,9 ->out 9.0
+
+#https://baike.baidu.com/item/%E7%AD%89%E6%AF%94%E6%95%B0%E5%88%97%E6%B1%82%E5%92%8C%E5%85%AC%E5%BC%8F
+#等比数列通项公式
+#an = a1*q^(n-1)
+def an(a1,n,q=1):
+    return a1*pow(q,n-1)   
+print(an(1,3,3))#1,3,9,27 ->out 9
+
+#等比数列前n项和
+#Sn = a1*(1-q^n)/(1-q)
+def Sn(a1,n,q=1):
+    return a1*(1-pow(q,n))/(1-q)    
+print(Sn(1,3,3))#1,3,9,27 ->out 13.0
