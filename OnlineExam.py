@@ -27,7 +27,9 @@ print(N,M)
 print(D,P)
 print(A)
 
-
+A = [[2],[3,4],[5,4,3]]
+B = [[True]*len(i) if type(i)==list else True for i in A]
+B = [[True], [True, True], [True, True, True]]
 
 #赛码网-我自己的输入方式。区别：测试用例是循环输入的
 def decIn(Str_in):
