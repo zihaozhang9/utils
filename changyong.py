@@ -60,6 +60,10 @@ os.path.splitext('c:/b/a.jpg') #('c:/b/a', '.jpg')
 os.remove(path)   #删除文件
 os.removedirs(path)   #删除空文件夹
 
+#列举文件排序 https://blog.csdn.net/cdw_FstLst/article/details/50009203
+list.sort(key=len) #按长度排序
+list.sort(key = str.lower) #按字母排序
+a.sort(key= lambda x:int(x[:-4])) #按数字大小排序
 
 ##################################################################
 
