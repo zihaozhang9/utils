@@ -50,6 +50,19 @@ std::vector<std::string> split_strtok(std::string str, std::string pattern = ","
 }
 #pragma endregion
 
+/*
+vector<string> 转vector<int> 需要：
+#include <algorithm>
+#include <iterator>
+*/
+int ToInt(const string &str) { return atoi(str.c_str()); }
+vector <int> string2int(vector<string> vs) {
+	std::vector <int> vi;
+	std::transform(vs.begin(), vs.end(), std::back_inserter(vi), ToInt);
+	//std::transform(vs.begin(), vs.end(), std::back_inserter(vi), [](string i) { return atoi(i.c_str()); });
+	return vi;
+}
+
 void test_split()
 {
 	std::string str = "1,2;3-4;,-5,";
@@ -63,9 +76,10 @@ void test_split()
 
 	cout << std::endl << "test split_strtok:  patter:;,-" << std::endl;
 	result = split_strtok(str, ";,-");//分割后是5个："1"、"2"、"3"、"4"、"5"
-	for (int i = 0; i<result.size(); i++)
+	std::vector <int> vi = string2int(result);
+	for (int i = 0; i<vi.size(); i++)
 	{
-		std::cout << "string:" << result[i] << std::endl;
+		std::cout << "int:" << vi[i] << std::endl;
 	}
 }
 
