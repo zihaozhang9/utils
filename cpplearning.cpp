@@ -22,9 +22,11 @@ int main()
 
 	char *c = new char[1];
 	cin >> c;
-	cout <<c << endl;
-  
-	/*要有cin是输入流的概念
+	cout << c << endl;
+
+	/*
+	参考：https://jingyan.baidu.com/article/86f4a73ec8a08137d652692f.html
+	要有cin是输入流的概念
 	符合">>"后面的变量会从流里拿出需要的变量（安装FIFO原则）
 	cin会自动切分空格，但不会切分逗号
 	如果输入的很多个数，一次没抓取完。
