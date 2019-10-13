@@ -4,10 +4,13 @@
 #include <string>
 #include <vector>
 #include <stdio.h>
+#include <algorithm>
+#include <iterator>
 /*命名空间*/
 using namespace std;
 
 /*切割字符串*/
+//find sub_str 切割
 #pragma region split_find
 /*
 *用find、substr函数切割字符串；
@@ -34,6 +37,7 @@ std::vector<std::string> split_find(std::string str, std::string pattern = ",")
 }
 #pragma endregion
 
+//strtok 切割
 #pragma region split_strtok
 /*
 *用strtok函数切割字符串；可以支持切割多个分隔符
@@ -50,10 +54,12 @@ std::vector<std::string> split_strtok(std::string str, std::string pattern = ","
 }
 #pragma endregion
 
+#pragma region test_split
 /*
 vector<string> 转vector<int> 需要：
 #include <algorithm>
 #include <iterator>
+//https://liam.page/2017/12/14/std-transform-and-converting-string-to-upper-or-lower-case/
 */
 int ToInt(const string &str) { return atoi(str.c_str()); }
 vector <int> string2int(vector<string> vs) {
@@ -82,10 +88,12 @@ void test_split()
 		std::cout << "int:" << vi[i] << std::endl;
 	}
 }
+#pragma endregion
 
+//测试输入cin
+#pragma region test_cin
+void test_cin() {
 
-int main()
-{
 	/*
 	输入字符串
 	*/
@@ -128,12 +136,81 @@ int main()
 	{
 		cout << r[i] << endl;
 	}
+}
+#pragma endregion
 
-	/*待增加：字符串切分
-	排序算法
+//数组长度
+#pragma region arraySize
+//获取数组长度
+//https://www.zhihu.com/question/27069812
+template<typename T, std::size_t N>
+constexpr std::size_t arraySize(T(&)[N]) noexcept { return N; }
+#pragma endregion
+
+//打印数组
+#pragma region print
+void print_int(int int_array[],int len ) {
+	int k = 0;
+	for (k = 0; k<len-1; k++)
+		cout << int_array[k] << ",";
+	cout << int_array[k] <<endl;
+}
+void print_vector(vector<int> int_array) {
+	int k = 0;
+	for (k = 0; k<int_array.size() - 1; k++)
+		cout << int_array[k] << ",";
+	cout << int_array[k] << endl;
+}
+#pragma endregion
+
+//快速排序
+#pragma region quickSort
+//https://blog.csdn.net/liuchen1206/article/details/6954074
+//https://blog.csdn.net/trb331617/article/details/77389142
+void quickSort(vector<int> &s, int l, int r)
+{
+	if (l< r)
+	{
+		int i = l, j = r, x = s[l];
+		while (i < j)
+		{
+			while (i < j && s[j] >= x) // 从右向左找第一个小于x的数
+				j--;
+			if (i < j)
+				s[i++] = s[j];
+			while (i < j && s[i]< x) // 从左向右找第一个大于等于x的数
+				i++;
+			if (i < j)
+				s[j--] = s[i];
+		}
+		s[i] = x;
+		quickSort(s, l, i - 1); // 递归调用
+		quickSort(s, i + 1, r);
+	}
+}
+
+void test_quickSort()
+{
+	int array[] = { 34,65,12,43,67,5,78,10,3,70 }, k;
+	int len = sizeof(array) / sizeof(int);
+	cout << "The orginal arrayare:" << endl;
+	print_int(array,len);
+
+	vector<int> vi(array, array + len);
+	quickSort(vi, 0, len - 1);
+	cout << "The sorted arrayare:" << endl;
+	print_vector(vi);
+}
+#pragma endregion
+
+int main()
+{
+	test_quickSort();
+	/*
+	待学习，模板 https://bbs.csdn.net/topics/392478020
+	传参如何接收 不固定个数参数；如何传入不确顶类型参数
+	https://songlee24.github.io/2014/07/22/cpp-changeable-parameter/
 	*/
-
-	
 	/*暂停*/
 	system("pause");
 	return 0;
