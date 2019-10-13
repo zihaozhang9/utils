@@ -7,6 +7,69 @@
 /*命名空间*/
 using namespace std;
 
+/*切割字符串*/
+#pragma region split_find
+/*
+*用find、substr函数切割字符串；
+*/
+std::vector<std::string> split_find(std::string str, std::string pattern = ",")
+{
+	std::string::size_type pos;
+	std::vector<std::string> result;
+	str += pattern;
+	int size = str.size();
+	for (int i = 0; i<size; i++)
+	{
+		//[c++string.find（）函数用法整理](https://blog.csdn.net/monkeyduck/article/details/23541073)
+		pos = str.find(pattern, i);
+		if (pos<size)
+		{
+			//[C++ string substr()](https://blog.csdn.net/sunshihua12829/article/details/50484966)
+			std::string s = str.substr(i, pos - i);
+			if (s.size()>0) result.push_back(s);
+			i = pos + pattern.size() - 1;
+		}
+	}
+	return result;
+}
+#pragma endregion
+
+#pragma region split_strtok
+/*
+*用strtok函数切割字符串；可以支持切割多个分隔符
+*/
+std::vector<std::string> split_strtok(std::string str, std::string pattern = ",")
+{
+	std::vector<std::string> result;
+	char *p = strtok((char*)str.data(), (char const*)pattern.data());
+	while (p != NULL) {
+		result.push_back(p);
+		p = strtok(NULL, (char const*)pattern.data());
+	}
+	return result;
+}
+#pragma endregion
+
+void test_split()
+{
+	std::string str = "1,2;3-4;,-5,";
+	cout << str << std::endl << std::endl;
+	cout << "test split_find : patter:," << std::endl;
+	std::vector<std::string> result = split_find(str, ";");//分割后是3个："1,2"、"3-4"、"-5"
+	for (int i = 0; i<result.size(); i++)
+	{
+		std::cout << "string:" << result[i] << std::endl;
+	}
+
+	cout << std::endl << "test split_strtok:  patter:;,-" << std::endl;
+	result = split_strtok(str, ";,-");//分割后是5个："1"、"2"、"3"、"4"、"5"
+	for (int i = 0; i<result.size(); i++)
+	{
+		std::cout << "string:" << result[i] << std::endl;
+	}
+}
+
+
 int main()
 {
 	/*
@@ -56,6 +119,7 @@ int main()
 	排序算法
 	*/
 
+	
 	/*暂停*/
 	system("pause");
 	return 0;
