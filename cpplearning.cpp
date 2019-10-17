@@ -149,6 +149,14 @@ constexpr std::size_t arraySize(T(&)[N]) noexcept { return N; }
 
 //打印数组
 #pragma region print
+template <typename T>
+void print(T array[],int len) {
+	int k;
+	for (k = 0; k < len - 1; k++) {
+		cout << array[k] << ",";
+	}
+	cout << array[k] << endl;
+}
 void print_int(int int_array[],int len ) {
 	int k = 0;
 	for (k = 0; k<len-1; k++)
