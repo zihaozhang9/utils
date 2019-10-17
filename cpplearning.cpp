@@ -211,6 +211,35 @@ void test_quickSort()
 }
 #pragma endregion
 
+
+
+//数据结构书上的 快排
+#pragma region QSort
+int Partition(vector<int> &L, int low, int high) {
+	int temp = L[low];
+	int pivot = L[low];
+	//cout << pivot << endl;
+	while (low<high)
+	{
+		while (low<high && L[high] >= pivot) { --high; }
+		L[low] = L[high];
+		while (low<high && L[low] <= pivot) { ++low; }
+		L[high] = L[low];
+	}
+	L[low] = temp;
+	return low;
+
+}
+
+void QSort(vector<int> &L, int low, int high) {
+	if (low < high) {
+		int pivotloc = Partition(L, low, high);
+		QSort(L, low, pivotloc - 1);
+		QSort(L, pivotloc + 1, high);
+	}
+}
+#pragma endregion
+
 int main()
 {
 	test_quickSort();
