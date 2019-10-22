@@ -150,18 +150,18 @@ constexpr std::size_t arraySize(T(&)[N]) noexcept { return N; }
 //打印数组
 #pragma region print
 template <typename T>
-void print(T array[],int len) {
+void print(T &array, int len) {
 	int k;
 	for (k = 0; k < len - 1; k++) {
 		cout << array[k] << ",";
 	}
 	cout << array[k] << endl;
 }
-void print_int(int int_array[],int len ) {
+void print_int(int int_array[], int len) {
 	int k = 0;
-	for (k = 0; k<len-1; k++)
+	for (k = 0; k<len - 1; k++)
 		cout << int_array[k] << ",";
-	cout << int_array[k] <<endl;
+	cout << int_array[k] << endl;
 }
 void print_vector(vector<int> int_array) {
 	int k = 0;
@@ -202,7 +202,7 @@ void test_quickSort()
 	int array[] = { 34,65,12,43,67,5,78,10,3,70 }, k;
 	int len = sizeof(array) / sizeof(int);
 	cout << "The orginal arrayare:" << endl;
-	print_int(array,len);
+	print_int(array, len);
 
 	vector<int> vi(array, array + len);
 	quickSort(vi, 0, len - 1);
@@ -221,9 +221,9 @@ int Partition(vector<int> &L, int low, int high) {
 	//cout << pivot << endl;
 	while (low<high)
 	{
-		while (low<high && L[high] >= pivot) { --high; }
+		while (low<high && L[high] >= pivot) { high--; }
 		L[low] = L[high];
-		while (low<high && L[low] <= pivot) { ++low; }
+		while (low<high && L[low] <= pivot) { low++; }
 		L[high] = L[low];
 	}
 	L[low] = temp;
@@ -238,11 +238,17 @@ void QSort(vector<int> &L, int low, int high) {
 		QSort(L, pivotloc + 1, high);
 	}
 }
+void testQSort() {
+	vector<int> array = {5,1,3,2,4};
+	QSort(array,0,4);
+	print<vector<int>>(array,5);
+}
 #pragma endregion
 
 int main()
 {
-	test_quickSort();
+	testQSort();
+	//test_quickSort();
 	/*
 	待学习，模板 https://bbs.csdn.net/topics/392478020
 	传参如何接收 不固定个数参数；如何传入不确顶类型参数
