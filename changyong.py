@@ -80,6 +80,8 @@ if os.path.exists(dst):
 def creatdir(dst): 
     if os.path.exists(dst):shutil.rmtree(dst) 
     os.makedirs(dst) 
+#或者直接创建
+if not os.path.exists(dst):os.makedirs(dst) 
 ##################################################################
 #sh
 #python中执行linux命令
