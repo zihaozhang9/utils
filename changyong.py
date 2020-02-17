@@ -65,6 +65,11 @@ list.sort(key=len) #按长度排序
 list.sort(key = str.lower) #按字母排序
 a.sort(key= lambda x:int(x[:-4])) #按数字大小排序
 
+#解压文件https://blog.csdn.net/webzhuce/article/details/79950027
+zFile = zipfile.ZipFile('zipname.zip', "r")
+for fileM in zFile.namelist(): 
+     zFile.extract(fileM, "savedir/")
+zFile.close();
 ##################################################################
 
 #shutil
