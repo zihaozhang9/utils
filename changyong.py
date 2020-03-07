@@ -39,7 +39,13 @@ def pil2cv(img):
 def cv2pil(img):
     return Image.fromarray(cv2.cvtColor(img,cv2.COLOR_BGR2RGB))
 
+
 ##################################################################
+
+#字符串
+#自动给数字前面补0
+n = "123"
+s = n.zfill(5)
 
 #os path
 #判断文件/路径是否存在，不存在则创建
@@ -134,6 +140,9 @@ cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
 
 #画多边形
 cv2.polylines(img,[pts],True,(0,255,255))
+
+#绘图trick
+img[mask==255] = ( 0.7*img[mask==255]+0.3*np.array([0,0,255]) ).astype(np.uint8)
 
 #长边resize
 w = h = 640
