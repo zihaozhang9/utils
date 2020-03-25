@@ -279,4 +279,10 @@ process(rootPath,savePath)
 out2html(rootPath)
 out2html2(savePath,rootPath2)
 
-
+#torch
+#torch.load gpu<-->cpu
+#https://www.cnblogs.com/xiaodai0/p/10413711.html
+#cpu -> gpu 1
+torch.load('modelparameters.pth', map_location=lambda storage, loc: storage.cuda(1))
+#gpu -> cpu
+torch.load('modelparameters.pth', map_location=lambda storage, loc: storage)
