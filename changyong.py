@@ -160,6 +160,35 @@ canvas[0:height,0:width,  :] = img
 #保存图像
 cv2.imwrite(os.path.join(savePath,imgName),img)
 
+#padding函数
+def cv_padding():
+    #https://www.jianshu.com/p/d9e982f6046a
+    img_path = '00043.jpg'
+    img = cv2.imread(img_path) 
+    width = img.shape[1]
+    heigh = img.shape[0]
+    padding = abs(width-heigh)
+    if width>heigh:
+        img = cv2.copyMakeBorder(img,padding//2, padding-padding//2, 0, 0 ,cv2.BORDER_CONSTANT,(0,0,0) )#top, bottom, left, right 
+    else:
+        img = cv2.copyMakeBorder(img,0, 0, padding//2, padding-padding//2,cv2.BORDER_CONSTANT,(0,0,0) )#top, bottom, left, right 
+    cv2.imwrite('temp.jpg',img)
+
+#padding函数
+from PIL import Image,ImageOps
+def pil_padding():
+    #https://blog.csdn.net/WYXHAHAHA123/article/details/88092722
+    img_path = '42vehicle_0000041.jpg'
+    img = Image.open(img_path).convert('RGB')
+    width = img.width
+    heigh = img.height
+    padding = abs(width-heigh)
+    if width>heigh:
+        constant2=ImageOps.expand(img, border=(0,padding//2,0,padding-padding//2), fill=0)##left,top,right,bottom
+    else:
+        constant2=ImageOps.expand(img, border=(padding//2,0,padding-padding//2,0), fill=0)##left,top,right,bottom
+    constant2.save('temp.jpg')
+
 #https://blog.csdn.net/guyuealian/article/details/86488008
 #计算相交面积、交并比
 def claOverlapArea(ocr_dict,string_label):
