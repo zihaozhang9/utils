@@ -189,6 +189,13 @@ def pil_padding():
         constant2=ImageOps.expand(img, border=(padding//2,0,padding-padding//2,0), fill=0)##left,top,right,bottom
     constant2.save('temp.jpg')
 
+#pil crop 
+#https://www.cnblogs.com/way_testlife/archive/2011/04/17/2019013.html
+from PIL import Image
+img = Image.open(img_path).convert('RGB')
+img = img.crop((left,top,right,bottom))
+img.save(save_path)
+    
 #https://blog.csdn.net/guyuealian/article/details/86488008
 #计算相交面积、交并比
 def claOverlapArea(ocr_dict,string_label):
