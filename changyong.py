@@ -322,3 +322,10 @@ out2html2(savePath,rootPath2)
 torch.load('modelparameters.pth', map_location=lambda storage, loc: storage.cuda(1))
 #gpu -> cpu
 torch.load('modelparameters.pth', map_location=lambda storage, loc: storage)
+
+
+#qt
+pyside2-uic -o 1.py package.ui #ui转py https://zhuanlan.zhihu.com/p/75637361
+#pycharm配置qt https://www.jianshu.com/p/5b063c5745d0
+#qt demo https://www.cnblogs.com/linyfeng/p/11223707.html
+
