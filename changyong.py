@@ -322,7 +322,26 @@ out2html2(savePath,rootPath2)
 torch.load('modelparameters.pth', map_location=lambda storage, loc: storage.cuda(1))
 #gpu -> cpu
 torch.load('modelparameters.pth', map_location=lambda storage, loc: storage)
-
+#transform equal
+transform=transforms.Compose([
+    transforms.CenterCrop(224),
+    #ToTensor img.float().div(255)
+    #https://github.com/pytorch/vision/blob/1b9f25111415dee8772e7b2e9c1962b7fa7349b1/torchvision/transforms/functional.py#L80
+    transforms.ToTensor(),  
+    #Normalize tensor.sub_(mean).div_(std) 
+    #https://github.com/pytorch/vision/blob/1b9f25111415dee8772e7b2e9c1962b7fa7349b1/torchvision/transforms/functional.py#L208
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]) 
+    
+])
+def cv_transform(cv_img):
+    np_mean = np.array([0.485, 0.456, 0.406],dtype = np.float64)
+    np_std = np.array([0.229, 0.224, 0.225],dtype = np.float64)
+    cv_img = cv2.resize(cv_img,(224,224))
+    cv_img = cv_img/255. 
+    cv_img = (cv_img-np_mean)/np_std
+    cv_img = cv_img.transpose(2,0,1)
+    cv_img = cv_img[np.newaxis,:]
+    return cv_img
 
 #qt
 pyside2-uic -o 1.py package.ui #ui转py https://zhuanlan.zhihu.com/p/75637361
