@@ -336,6 +336,7 @@ transform=transforms.Compose([
 def cv_transform(cv_img):
     np_mean = np.array([0.485, 0.456, 0.406],dtype = np.float64)
     np_std = np.array([0.229, 0.224, 0.225],dtype = np.float64)
+    cv_img = cv2.cvtColor(cv_img,cv2.COLOR_BGR2RGB)
     cv_img = cv2.resize(cv_img,(224,224))
     cv_img = cv_img/255. 
     cv_img = (cv_img-np_mean)/np_std
